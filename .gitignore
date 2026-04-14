@@ -1,4 +1,9 @@
 # Byte-compiled / optimized / DLL files
+books/
+img/
+*.json
+index.html
+
 __pycache__/
 *.py[cod]
 *$py.class
