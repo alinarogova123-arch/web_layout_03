@@ -1,13 +1,13 @@
 from jinja2 import Environment, FileSystemLoader, select_autoescape
 from livereload import Server
+from more_itertools import chunked
 import json
-
-
-
 
 
 with open("meta_data.json", "r", encoding='utf-8') as my_file:
     books = json.loads(my_file.read())
+
+books_of_two = list(chunked(books, 2))
 
 env = Environment(
     loader=FileSystemLoader('.'),
@@ -17,7 +17,7 @@ env = Environment(
 def on_reload():
     template = env.get_template('template.html')
     rendered_page = template.render(
-    books=books,
+    books_of_two=books_of_two,
     )
     with open('index.html', 'w', encoding="utf8") as file:
         file.write(rendered_page)
