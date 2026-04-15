@@ -3,6 +3,7 @@ from livereload import Server
 from more_itertools import chunked
 import json
 import os
+import math
 
 
 os.makedirs("pages", exist_ok=True)
@@ -20,12 +21,14 @@ env = Environment(
 
 def on_reload():
     template = env.get_template('template.html')
-    for num_page, books_for_page in enumerate(books_for_pages, 1):
+    for page_number, books_for_page in enumerate(books_for_pages, 1):
         books_of_two = list(chunked(books_for_page, 2))
         rendered_page = template.render(
         books_of_two=books_of_two,
+        page_number=page_number,
+        page_count=math.ceil(len(books) / 20)
         )
-        with open(f'pages/index{num_page}.html', 'w', encoding="utf8") as file:
+        with open(f'pages/index{page_number}.html', 'w', encoding="utf8") as file:
             file.write(rendered_page)
 
 on_reload()
@@ -34,4 +37,4 @@ server = Server()
 
 server.watch('template.html', on_reload)
 
-server.serve(root='pages')
+server.serve(root='pages', default_filename='index1.html')
