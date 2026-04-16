@@ -55,7 +55,9 @@
                     <div class="card-body">
                       <h5 class="card-title">{{ book.title }}</h5>
                       <p class="card-text">{{ book.author }}</p>
-                      <p><a href="../{{ book.book_path }}" target="_blank" rel="noopener noreferrer">Читать</a></p>
+                      <p>
+                        <a href="../{{ book.book_path }}" target="_blank" rel="noopener noreferrer">Читать</a>
+                      </p>
                       <p><span class="badge badge-light text-wrap" style="max-width: 300px;">
                         {{ book.genres }}</span></p>
                     </div>
